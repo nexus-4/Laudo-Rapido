@@ -1,64 +1,74 @@
-# Laudo-Rapido
+# Laudo Rápido
 
-## Overview
-Laudo-Rapido is a photogrammetry pipeline that processes images using OpenMVG and organizes results for further analysis. It is written in Python and uses several dependencies.
+![Status](https://img.shields.io/badge/status-protótipo_em_desenvolvimento-blue)
 
-## Dependencies
+Um protótipo para reconstrução 3D de cenas de acidentes de trânsito utilizando fotogrametria com drones.
 
-- Numpy
-- OpenCV
-- PyQt6
-- Open3D
+## Visão do Projeto
 
-These should be installed in your Python virtual environment.
+O objetivo do "Laudo Rápido" é criar uma ferramenta de software que agilize e modernize o processo de perícia de trânsito. Utilizando imagens de drones, o projeto visa substituir o demorado e arriscado processo de medição manual e criação de croquis em campo. A visão final é fornecer uma solução que gere rapidamente modelos 2D e 3D precisos e mensuráveis da cena, aumentando a segurança do perito, a qualidade do laudo e a velocidade de liberação da via.
 
-## Directory Structure
+## Funcionalidades do Protótipo (v0.1)
 
-- `photos/` — Input images for photogrammetry.
-- `results/` — Output directory for results.
-	- `mvg_output/` — Subdirectory for OpenMVG outputs.
+Esta fase inicial do projeto está focada em validar a tecnologia central. As funcionalidades são:
 
-## Main Script: `processar.py`
+* **Estrutura de Projeto Profissional:** Organização modular do código (`core`, `ui`, `projects`).
+* **Pipeline de Fotogrametria:** Geração de uma nuvem de pontos 3D densa a partir de um conjunto de fotos, utilizando OpenMVG e OpenMVS.
+* **Visualizador 3D Interativo:** Uma janela simples para carregar e navegar na cena 3D reconstruída.
 
-### Purpose
-Automates the photogrammetry workflow using OpenMVG tools.
+## Arquitetura
 
-### Steps
+O projeto segue uma arquitetura modular que separa a lógica de processamento (`core`) da interface do usuário (`ui`). Isso garante que o sistema seja fácil de manter, testar e escalar no futuro.
 
-1. **Path Setup**
-	 - Determines base directory.
-	 - Sets up paths for input (`photos/`) and output (`results/mvg_output/`).
-	 - Ensures output directory exists.
+* `main.py`: Ponto de entrada da aplicação.
+* `core/`: Módulos responsáveis pelo processamento pesado (fotogrametria).
+* `ui/`: Módulos responsáveis pela interface gráfica (janelas, botões).
+* `projects/`: Diretório para armazenar os dados de cada caso.
 
-2. **Pipeline Execution**
-	 - Prints status messages for user feedback.
-	 - Runs OpenMVG's `SfMInit_ImageListing` to analyze images.
+## Tecnologias Utilizadas
 
-### Usage
+* **Linguagem:** Python 3.10+
+* **Interface Gráfica:** PyQt6
+* **Motor de Fotogrametria:** OpenMVG & OpenMVS
+* **Visualização 3D:** Open3D
+* **Gerenciador de Pacotes (macOS):** Homebrew
+
+## Guia de Instalação e Configuração (macOS)
+
+1.  **Clonar o Repositório:**
+    ```bash
+    git clone [URL_DO_SEU_REPOSITORIO_GIT]
+    cd Laudo-Rapido
+    ```
+
+2.  **Instalar Dependências do Sistema com Homebrew:**
+    ```bash
+    brew update
+    brew install python openmvg openmvs
+    ```
+
+3.  **Criar e Ativar o Ambiente Virtual:**
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
+
+4.  **Instalar as Bibliotecas Python:**
+    (Primeiro, crie um arquivo `requirements.txt` e adicione as dependências abaixo)
+    ```
+    PyQt6
+    numpy
+    opencv-python
+    open3d
+    ```
+    Depois, instale com o comando:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Como Executar o Protótipo
+
+Com o ambiente virtual ativado, execute o ponto de entrada principal:
 
 ```bash
-python processar.py
-```
-
-### Key Variables
-
-- `base_dir`: Path to the script's directory.
-- `photos_dir`: Path to input images.
-- `results_dir`: Path to results.
-- `mvg_output_dir`: Path to OpenMVG output.
-
-### External Commands
-
-- `openmvg_main_SfMInit_ImageListing`
-	- `-i`: Input images directory.
-	- `-o`: Output directory.
-	- `-f`: Camera model (1 = perspective).
-
-### Output
-
-- Prints progress to console.
-- Results saved in `results/mvg_output/`.
-
-## License
-
-MIT License — see `LICENSE` for details.
+python main.py

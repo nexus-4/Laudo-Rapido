@@ -1,0 +1,9 @@
+# Interface Gráfica
+PyQt6
+
+# Computação Numérica e Processamento de Imagem
+numpy
+opencv-python
+
+# Visualização 3D
+open3d
