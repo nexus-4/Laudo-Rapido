@@ -1,4 +1,0 @@
-numpy
-opencv-python
-PyQt6
-open3d
